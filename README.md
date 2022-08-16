@@ -24,12 +24,27 @@ docker network create laf_shared_network
 ```bash
   cd ./source && docker-compose down -v && docker-compose up
  
+  # open a new terminal and run the following command in root directory of this project
+
   # add alias
   mc alias set source http://localhost:9000 minio-root-user minio-root-password
 
   # add policy
   mc admin policy add source owner_by_prefix ./scripts/user-policy.json
 
+  # add users
+  sh ./scripts/create-users.sh
+
+  # 1. restart a minio server to observe boot time
+  docker-compose restart source_s4_1
+
+  # open http://localhost:9001 to verify if minio is up or observe the logs
+
+
+  # 2. restart the whole cluster servers to observe boot time
+  cd ./source && docker-compose restart
+
+  # open http://localhost:9001 to verify if minio is up or observe the logs
 ```
 
 # clean up
