@@ -37,14 +37,11 @@ docker network create laf_shared_network
 
   # 1. restart a minio server to observe boot time
   docker-compose restart source_s4_1
-
-  # open http://localhost:9001 to verify if minio is up or observe the logs
-
+  date && mc admin info source && date  # verify if minio is up or observe the logs
 
   # 2. restart the whole cluster servers to observe boot time
   cd ./source && docker-compose restart
-
-  # open http://localhost:9001 to verify if minio is up or observe the logs
+  date && mc admin info source && date  # verify if minio is up or observe the logs
 ```
 
 # clean up
