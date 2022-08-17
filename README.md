@@ -20,6 +20,12 @@ git clone git@github.com:maslow/experiment-minio-with-huge-users.git
 cd experiment-minio-with-huge-users
 
 docker network create laf_shared_network
+
+# install minio client: https://docs.min.io/minio/baremetal/reference/minio-mc.html
+curl https://dl.min.io/client/mc/release/linux-amd64/mc -o /usr/local/bin/mc
+chmod +x /usr/local/bin/mc
+
+mc --help
 ```
 
 # start services
@@ -34,7 +40,7 @@ docker network create laf_shared_network
   mc admin policy add source owner_by_prefix ./scripts/user-policy.json
 
   # add users
-  sh ./scripts/create-users.sh
+  sh scripts/batch-add-user.sh
 
   # 1. restart a minio server to observe boot time
   docker-compose restart experiment-minio-with-huge-users_s4_1
