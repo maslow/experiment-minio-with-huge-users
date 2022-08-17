@@ -16,15 +16,16 @@ scenarios:
 # pre-start
 
 ```bash
+git clone git@github.com:maslow/experiment-minio-with-huge-users.git
+cd experiment-minio-with-huge-users
+
 docker network create laf_shared_network
 ```
 
 # start services
 
 ```bash
-  cd ./source && docker-compose down -v && docker-compose up
- 
-  # open a new terminal and run the following command in root directory of this project
+  docker-compose down -v && docker-compose up
 
   # add alias
   mc alias set source http://localhost:9000 minio-root-user minio-root-password
@@ -36,18 +37,18 @@ docker network create laf_shared_network
   sh ./scripts/create-users.sh
 
   # 1. restart a minio server to observe boot time
-  docker-compose restart source_s4_1
+  docker-compose restart experiment-minio-with-huge-users_s4_1
   date && mc admin info source && date  # verify if minio is up or observe the logs
 
   # 2. restart the whole cluster servers to observe boot time
-  cd ./source && docker-compose restart
+  docker-compose restart
   date && mc admin info source && date  # verify if minio is up or observe the logs
 ```
 
 # clean up
 
 ```bash
-cd ./source && docker-compose down -v
+docker-compose down -v
 ```
 
 
